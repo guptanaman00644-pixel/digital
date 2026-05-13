@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – MyPortfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/> -->
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="logo">MyPortfolio</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Me</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <h1>Contact <span class="highlight">Me</span></h1>
+    <p>I'd love to hear from you!</p>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+
+    <!-- CONTACT INFO -->
+    <div class="contact-info">
+      <h2>Get In Touch</h2>
+      <p>Whether it's about a project, a question, or just to say hi — feel free to reach out!</p>
+      <div class="info-item">
+        <span class="info-icon">📧</span>
+        <div>
+          <strong>Email</strong>
+          <p>guptanaman00644@gmail.com</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">📍</span>
+        <div>
+          <strong>Location</strong>
+          <p>jaipur,Rajasthan, India</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🌐</span>
+        <div>
+          <strong>GitHub</strong>
+          <p>github.com/namangupta</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💼</span>
+        <div>
+          <strong>LinkedIn</strong>
+          <p>linkedin.com/in/namangupta</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form-wrapper">
+      <h2>Send a Message</h2>
+      <div class="contact-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="What's this about?" />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" placeholder="Write your message here..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="sendMessage()">Send Message 🚀</button>
+        <p id="form-msg" class="form-feedback"></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 Naman Gupta · Built with HTML &amp; CSS</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    function sendMessage() {
+      const name    = document.getElementById('name').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const msg     = document.getElementById('form-msg');
+
+      if (!name || !email || !message) {
+        msg.style.color = '#e74c3c';
+        msg.textContent = '⚠️ Please fill in all required fields.';
+        return;
+      }
+      msg.style.color = '#27ae60';
+      msg.textContent = `✅ Thanks, ${name}! Your message has been sent.`;
+      // Clear fields
+      ['name','email','subject','message'].forEach(id =>
+        document.getElementById(id).value = ''
+      );
+    }
+  </script>
+
+</body>
+</html>

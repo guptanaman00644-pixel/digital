@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Safety Tips for Students</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/> -->
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent:  #22d3ee;
+      --accent2: #f59e0b;
+      --danger:  #ef4444;
+      --safe:    #22c55e;
+      --surface: #1e293b;
+      --surface2:#334155;
+      --text:    #f1f5f9;
+      --muted:   #94a3b8;
+      --radius:  14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 4rem 5% 3rem;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid #334155;
+    }
+    .header-badge {
+      display: inline-block;
+      background: rgba(34,211,238,0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+    }
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    header h1 span { color: var(--accent); }
+    header p { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+    /* ALERT BANNER */
+    .alert-banner {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.4);
+      color: #fca5a5;
+      text-align: center;
+      padding: 0.75rem 5%;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .alert-banner strong { color: var(--danger); }
+
+    /* MAIN */
+    main { padding: 3rem 5%; max-width: 1100px; margin: 0 auto; }
+
+    /* SECTION TITLE */
+    .sec-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .sec-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--surface2);
+    }
+
+    /* TIPS GRID */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .tip-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent);
+    }
+    .tip-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px rgba(34,211,238,0.1);
+    }
+    .tip-card.danger::before  { background: var(--danger); }
+    .tip-card.warning::before { background: var(--accent2); }
+    .tip-card.safe::before    { background: var(--safe); }
+
+    .tip-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .tip-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .tip-card p  { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+
+    .tip-list { list-style: none; }
+    .tip-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 0.3rem 0 0.3rem 1.3rem;
+      position: relative;
+    }
+    .tip-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--safe);
+      font-weight: 700;
+    }
+    .tip-list li.bad::before { content: '✗'; color: var(--danger); }
+
+    /* QUIZ SECTION */
+    .quiz-section {
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .quiz-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .quiz-section p  { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+    .quiz-q { margin-bottom: 1.5rem; }
+    .quiz-q p { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.6rem; }
+
+    .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .quiz-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface2);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .quiz-options label:hover { background: #475569; }
+
+    .quiz-btn {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .quiz-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    #quiz-result { margin-top: 1rem; font-size: 1rem; font-weight: 600; }
+
+    /* STAT CARDS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid #334155;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-card p { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* DO / DON'T */
+    .dos-donts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 600px) { .dos-donts { grid-template-columns: 1fr; } }
+
+    .do-card, .dont-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .do-card { border: 1px solid rgba(34,197,94,0.4); }
+    .dont-card { border: 1px solid rgba(239,68,68,0.4); }
+
+    .do-card h3  { color: var(--safe);   font-size: 1.1rem; margin-bottom: 1rem; }
+    .dont-card h3 { color: var(--danger); font-size: 1.1rem; margin-bottom: 1rem; }
+
+    .do-card li  { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; margin-left: 1.2rem; }
+    .dont-card li { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; margin-left: 1.2rem; }
+
+    /* FOOTER */
+    footer {
+      background: #0a0f1a;
+      text-align: center;
+      padding: 2rem 5%;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid #334155;
+    }
+    footer strong { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div class="alert-banner">
+    <strong>⚠️ Did you know?</strong> A cyberattack happens every <strong>39 seconds</strong>. Stay informed, stay safe.
+  </div>
+
+  <header>
+    <div class="header-badge">🔐 CYBERSECURITY AWARENESS</div>
+    <h1>Cyber Safety Tips <span>for Students</span></h1>
+    <p>Your guide to staying safe, smart, and secure in the digital world.</p>
+  </header>
+
+  <main>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-num">95%</span>
+        <p>of cybersecurity breaches are caused by human error</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">1.5B</span>
+        <p>phishing emails sent every day worldwide</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">30s</span>
+        <p>is how long it takes to crack a weak password</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">60%</span>
+        <p>of young people have experienced online harassment</p>
+      </div>
+    </div>
+
+    <!-- TIPS: PASSWORD SAFETY -->
+    <h2 class="sec-title">🔑 Key Safety Areas</h2>
+    <div class="tips-grid">
+
+      <div class="tip-card">
+        <div class="tip-icon">🔑</div>
+        <h3>Password Safety</h3>
+        <p>Your password is your first line of defence online.</p>
+        <ul class="tip-list">
+          <li>Use at least 12 characters</li>
+          <li>Mix letters, numbers, and symbols</li>
+          <li>Use a different password for each site</li>
+          <li>Enable Two-Factor Authentication (2FA)</li>
+          <li class="bad">Don't use your name or birthday</li>
+          <li class="bad">Never share passwords with friends</li>
+        </ul>
+      </div>
+
+      <div class="tip-card warning">
+        <div class="tip-icon">🎣</div>
+        <h3>Phishing Awareness</h3>
+        <p>Phishing tricks you into giving up your personal information.</p>
+        <ul class="tip-list">
+          <li>Check the sender's email address carefully</li>
+          <li>Never click suspicious links in emails or SMS</li>
+          <li>Look for HTTPS in website URLs</li>
+          <li>Verify requests from "banks" by calling them</li>
+          <li class="bad">Don't open attachments from strangers</li>
+          <li class="bad">Urgency in emails is a red flag</li>
+        </ul>
+      </div>
+
+      <div class="tip-card safe">
+        <div class="tip-icon">🌐</div>
+        <h3>Safe Browsing</h3>
+        <p>Browse smart to protect your data and privacy.</p>
+        <ul class="tip-list">
+          <li>Use trusted, secure websites (HTTPS)</li>
+          <li>Keep your browser & OS updated</li>
+          <li>Avoid public Wi-Fi for sensitive tasks</li>
+          <li>Use a VPN when on public networks</li>
+          <li class="bad">Don't download from unknown sources</li>
+          <li class="bad">Never ignore security warnings</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">📱</div>
+        <h3>Social Media Privacy</h3>
+        <p>Protect your identity and reputation online.</p>
+        <ul class="tip-list">
+          <li>Set profiles to private</li>
+          <li>Be careful what you post publicly</li>
+          <li>Don't share your location in real time</li>
+          <li>Think before you tag others</li>
+          <li class="bad">Don't accept friend requests from strangers</li>
+          <li class="bad">Avoid oversharing personal details</li>
+        </ul>
+      </div>
+
+      <div class="tip-card danger">
+        <div class="tip-icon">📲</div>
+        <h3>OTP & Scam Awareness</h3>
+        <p>One-Time Passwords (OTPs) and financial scams are on the rise.</p>
+        <ul class="tip-list">
+          <li>Never share OTPs with anyone — even "banks"</li>
+          <li>No legitimate service asks for OTP via call</li>
+          <li>Verify UPI requests before paying</li>
+          <li>Report suspicious calls to authorities</li>
+          <li class="bad">Don't click payment links in SMS</li>
+          <li class="bad">Too-good-to-be-true offers are scams</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-icon">💻</div>
+        <h3>Device Security</h3>
+        <p>Keep your devices healthy and protected.</p>
+        <ul class="tip-list">
+          <li>Install a trusted antivirus software</li>
+          <li>Regularly update your operating system</li>
+          <li>Lock your screen with a PIN or biometric</li>
+          <li>Back up important data regularly</li>
+          <li class="bad">Don't use cracked/pirated software</li>
+          <li class="bad">Never leave devices unlocked in public</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- DO'S AND DON'TS -->
+    <h2 class="sec-title">✅ Do's & ❌ Don'ts</h2>
+    <div class="dos-donts">
+      <div class="do-card">
+        <h3>✅ DO These Things</h3>
+        <ul>
+          <li>Use strong, unique passwords everywhere</li>
+          <li>Enable 2FA on all important accounts</li>
+          <li>Keep software updated</li>
+          <li>Report cyberbullying and scams</li>
+          <li>Think before you click any link</li>
+          <li>Log out from shared computers</li>
+          <li>Read privacy policies carefully</li>
+        </ul>
+      </div>
+      <div class="dont-card">
+        <h3>❌ DON'T Do These</h3>
+        <ul>
+          <li>Share passwords with anyone</li>
+          <li>Click unknown links or pop-ups</li>
+          <li>Download apps from unofficial stores</li>
+          <li>Post personal info publicly online</li>
+          <li>Use the same password everywhere</li>
+          <li>Trust calls asking for OTP or money</li>
+          <li>Connect to unsecured public Wi-Fi</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MINI QUIZ -->
+    <div class="quiz-section">
+      <h2>🧠 Quick Cyber Safety Quiz</h2>
+      <p>Test your cybersecurity knowledge with these quick questions!</p>
+
+      <div class="quiz-q" id="q1">
+        <p>Q1. Which of the following is the strongest password?</p>
+        <div class="quiz-options">
+          <label><input type="radio" name="q1" value="a"/> password123</label>
+          <label><input type="radio" name="q1" value="b"/> MyDog2024</label>
+          <label><input type="radio" name="q1" value="c"/> T@9x!mK#2pLz</label>
+          <label><input type="radio" name="q1" value="d"/> 12345678</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q2">
+        <p>Q2. What should you do if you receive an OTP from your bank that you didn't request?</p>
+        <div class="quiz-options">
+          <label><input type="radio" name="q2" value="a"/> Share it to verify who sent it</label>
+          <label><input type="radio" name="q2" value="b"/> Ignore and then change your password</label>
+          <label><input type="radio" name="q2" value="c"/> Call the bank using their official number to report it</label>
+          <label><input type="radio" name="q2" value="d"/> Give it to whoever called asking for it</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q3">
+        <p>Q3. What does "HTTPS" in a website URL mean?</p>
+        <div class="quiz-options">
+          <label><input type="radio" name="q3" value="a"/> The website is fast</label>
+          <label><input type="radio" name="q3" value="b"/> The connection is encrypted and secure</label>
+          <label><input type="radio" name="q3" value="c"/> The website is government-approved</label>
+          <label><input type="radio" name="q3" value="d"/> You have to pay to use it</label>
+        </div>
+      </div>
+
+      <button class="quiz-btn" onclick="checkQuiz()">Submit Answers</button>
+      <p id="quiz-result"></p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>🔐 <strong>Stay Cyber Safe</strong> · Part of the Digital Profile Ecosystem Project · 2026</p>
+    <p style="margin-top:0.5rem">Remember: In cyberspace, your actions are your best defence.</p>
+  </footer>
+
+  <script>
+    function checkQuiz() {
+      const answers = { q1: 'c', q2: 'c', q3: 'b' };
+      let score = 0;
+      for (const [q, correct] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === correct) score++;
+      }
+      const result = document.getElementById('quiz-result');
+      const msgs = [
+        '😅 0/3 — Keep learning! Read the tips above carefully.',
+        '🙂 1/3 — Good start! Review the sections you missed.',
+        '😊 2/3 — Nice! Youre almost a cyber safety pro!',
+        '🎉 3/3 — Perfect score! You are a Cyber Safety Champion!'
+      ];
+      result.textContent = msgs[score];
+      result.style.color = score === 3 ? '#22c55e' : score >= 2 ? '#f59e0b' : '#ef4444';
+    }
+  </script>
+
+</body>
+</html>

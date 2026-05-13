@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> – Web Design Layout (UI/UX)</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet"/> -->
+  <style>
+    :root {
+      --bg:       #f0f4ff;
+      --primary:  #3b5bdb;
+      --accent:   #ff6b6b;
+      --accent2:  #51cf66;
+      --surface:  #ffffff;
+      --border:   #dee2e6;
+      --text:     #212529;
+      --muted:    #868e96;
+      --radius:   12px;
+      --shadow:   0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+    }
+
+    h1.page-title {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    h2.page-sub {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .part-note {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ---- BROWSER FRAME ---- */
+    .browser-frame {
+      background: #e9ecef;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+    .browser-bar {
+      background: #dee2e6;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .browser-dots { display: flex; gap: 0.4rem; }
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red    { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green  { background: #28ca41; }
+    .url-bar {
+      flex: 1;
+      background: white;
+      border-radius: 20px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ---- WEBSITE MOCKUP ---- */
+    .site-nav {
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .site-logo { font-weight: 800; font-size: 1.1rem; color: var(--primary); }
+    .site-nav-links { display: flex; gap: 1.5rem; }
+    .site-nav-links span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      cursor: default;
+    }
+    .site-nav-links span.active { color: var(--primary); font-weight: 600; }
+    .nav-cta {
+      background: var(--primary);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+    }
+
+    .site-hero {
+      background: linear-gradient(135deg, #3b5bdb 0%, #4dabf7 100%);
+      color: white;
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-left { flex: 1; min-width: 220px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .hero-left h1 { font-size: 1.8rem; font-weight: 800; line-height: 1.25; margin-bottom: 0.5rem; }
+    .hero-left p  { font-size: 0.85rem; opacity: 0.85; margin-bottom: 1rem; }
+    .hero-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .hbtn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: default;
+    }
+    .hbtn.filled { background: white; color: var(--primary); }
+    .hbtn.ghost  { border: 1.5px solid rgba(255,255,255,0.6); color: white; }
+
+    .hero-right {
+      flex: 0 0 160px;
+      text-align: center;
+      font-size: 5rem;
+    }
+
+    /* STATS ROW */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-box {
+      padding: 1rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-box:last-child { border-right: none; }
+    .stat-num { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .stat-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* CONTENT GRID */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--bg);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card-head {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-head .view-all {
+      font-size: 0.72rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .card-body { padding: 1rem; }
+
+    /* Project list */
+    .proj-list { list-style: none; }
+    .proj-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f1f3f5;
+    }
+    .proj-item:last-child { border-bottom: none; }
+    .proj-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .proj-item .proj-name { font-size: 0.82rem; font-weight: 600; flex: 1; }
+    .proj-item .proj-tag  {
+      font-size: 0.68rem;
+      background: #e7f5ff;
+      color: var(--primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    /* Progress bars */
+    .progress-item { margin-bottom: 0.75rem; }
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    .prog-bar-bg {
+      height: 6px;
+      background: #f1f3f5;
+      border-radius: 3px;
+    }
+    .prog-bar { height: 6px; border-radius: 3px; }
+
+    /* Sidebar cards */
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+    .profile-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .profile-avatar {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--primary), #4dabf7);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 0.6rem;
+    }
+    .profile-card h3 { font-size: 0.9rem; font-weight: 700; }
+    .profile-card p  { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .profile-stats { display: flex; justify-content: space-around; }
+    .ps-item { text-align: center; }
+    .ps-num { font-size: 0.95rem; font-weight: 700; color: var(--primary); }
+    .ps-lbl { font-size: 0.65rem; color: var(--muted); }
+
+    .tip-card-small {
+      background: linear-gradient(135deg, #ff6b6b, #ffa94d);
+      border-radius: var(--radius);
+      padding: 1rem;
+      color: white;
+    }
+    .tip-card-small h4 { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .tip-card-small p  { font-size: 0.75rem; opacity: 0.9; }
+
+    /* SITE FOOTER MOCKUP */
+    .site-footer {
+      background: #212529;
+      color: #adb5bd;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.75rem;
+    }
+
+    /* ---- DESIGN ANNOTATIONS ---- */
+    .annotations {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+    .annotations h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-align: center;
+    }
+    .anno-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .anno-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .anno-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .anno-card p  { font-size: 0.8rem; color: var(--muted); }
+    .color-row { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+    .color-swatch {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .content-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .site-nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">Part 2 – Web Designing (UI/UX)</h1>
+  <h2 class="page-sub">MyPortfolio — Design Layout</h2>
+  <p class="part-note">This is a fully coded UI/UX design mockup of the portfolio website, created using HTML & CSS.<br>
+  It demonstrates layout composition, colour theory, typography, and component design.</p>
+
+  <!-- BROWSER FRAME -->
+  <div class="browser-frame">
+    <div class="browser-bar">
+      <div class="browser-dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="url-bar">🔒 myportfolio.netlify.app</div>
+    </div>
+
+    <!-- SITE NAV -->
+    <div class="site-nav">
+      <div class="site-logo">MyPortfolio</div>
+      <div class="site-nav-links">
+        <span class="active">Home</span>
+        <span>About</span>
+        <span>Projects</span>
+        <span>Contact</span>
+      </div>
+      <div class="nav-cta">Hire Me</div>
+    </div>
+
+    <!-- HERO -->
+    <div class="site-hero">
+      <div class="hero-left">
+        <div class="hero-badge">👋 Open to Opportunities</div>
+        <h1>I Build<br/>Beautiful Websites</h1>
+        <p>Web developer & UI/UX enthusiast crafting clean, responsive digital experiences.</p>
+        <div class="hero-btns">
+          <div class="hbtn filled">View Projects</div>
+          <div class="hbtn ghost">Contact Me</div>
+        </div>
+      </div>
+      <div class="hero-right">👨‍💻</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">12+</div><div class="stat-lbl">Projects Done</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-lbl">Years Learning</div></div>
+      <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Skills Mastered</div></div>
+      <div class="stat-box"><div class="stat-num">98%</div><div class="stat-lbl">Satisfaction</div></div>
+    </div>
+
+    <!-- CONTENT GRID -->
+    <div class="content-grid">
+      <!-- LEFT: Projects + Skills -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div class="card-head">
+            📁 Recent Projects
+            <span class="view-all">View All →</span>
+          </div>
+          <div class="card-body">
+            <ul class="proj-list">
+              <li class="proj-item">
+                <div class="proj-dot" style="background:#3b5bdb"></div>
+                <span class="proj-name">Personal Portfolio Website</span>
+                <span class="proj-tag">HTML/CSS</span>
+              </li>
+              <li class="proj-item">
+                <div class="proj-dot" style="background:#ff6b6b"></div>
+                <span class="proj-name">Cyber Safety Awareness Page</span>
+                <span class="proj-tag">Security</span>
+              </li>
+              <li class="proj-item">
+                <div class="proj-dot" style="background:#51cf66"></div>
+                <span class="proj-name">SafeKids App Concept</span>
+                <span class="proj-tag">App Idea</span>
+              </li>
+              <li class="proj-item">
+                <div class="proj-dot" style="background:#f59e0b"></div>
+                <span class="proj-name">UI/UX Design Mockup</span>
+                <span class="proj-tag">Design</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">📊 Skill Proficiency</div>
+          <div class="card-body">
+            <div class="progress-item">
+              <div class="prog-label"><span>HTML5</span><span>90%</span></div>
+              <div class="prog-bar-bg"><div class="prog-bar" style="width:90%;background:#3b5bdb"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="prog-label"><span>CSS3</span><span>85%</span></div>
+              <div class="prog-bar-bg"><div class="prog-bar" style="width:85%;background:#4dabf7"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="prog-label"><span>JavaScript</span><span>65%</span></div>
+              <div class="prog-bar-bg"><div class="prog-bar" style="width:65%;background:#51cf66"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="prog-label"><span>UI/UX Design</span><span>75%</span></div>
+              <div class="prog-bar-bg"><div class="prog-bar" style="width:75%;background:#f59e0b"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="prog-label"><span>Cybersecurity Basics</span><span>70%</span></div>
+              <div class="prog-bar-bg"><div class="prog-bar" style="width:70%;background:#ff6b6b"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div class="sidebar">
+        <div class="profile-card">
+          <div class="profile-avatar">👤</div>
+          <h3>Alex Johnson</h3>
+          <p>Web Developer · Student</p>
+          <div class="profile-stats">
+            <div class="ps-item"><div class="ps-num">12</div><div class="ps-lbl">Projects</div></div>
+            <div class="ps-item"><div class="ps-num">5</div><div class="ps-lbl">Skills</div></div>
+            <div class="ps-item"><div class="ps-num">3</div><div class="ps-lbl">Years</div></div>
+          </div>
+        </div>
+
+        <div class="tip-card-small">
+          <h4>🔐 Cyber Tip of the Day</h4>
+          <p>Never reuse the same password. Use a password manager to keep them all safe!</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">🏷️ Tech Stack</div>
+          <div class="card-body" style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+            <span style="background:#e7f5ff;color:#3b5bdb;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">HTML5</span>
+            <span style="background:#e7f5ff;color:#3b5bdb;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">CSS3</span>
+            <span style="background:#fff3bf;color:#d97706;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">JavaScript</span>
+            <span style="background:#ebfbee;color:#2f9e44;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">Figma</span>
+            <span style="background:#fff0f6;color:#c2255c;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">VS Code</span>
+            <span style="background:#f3f0ff;color:#7048e8;font-size:0.72rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:50px;">GitHub</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SITE FOOTER -->
+    <div class="site-footer">
+      © 2026 Alex Johnson · Built with HTML & CSS · All Rights Reserved
+    </div>
+  </div>
+
+  <!-- DESIGN ANNOTATIONS -->
+  <div class="annotations">
+    <h3>🎨 Design Decisions & Annotations</h3>
+    <div class="anno-grid">
+      <div class="anno-card">
+        <h4>🎨 Colour Palette</h4>
+        <p>Primary blue for trust, red accent for energy, green for success.</p>
+        <div class="color-row">
+          <div class="color-swatch" style="background:#3b5bdb"></div>
+          <div class="color-swatch" style="background:#4dabf7"></div>
+          <div class="color-swatch" style="background:#ff6b6b"></div>
+          <div class="color-swatch" style="background:#51cf66"></div>
+          <div class="color-swatch" style="background:#f59e0b"></div>
+        </div>
+      </div>
+      <div class="anno-card">
+        <h4>🔤 Typography</h4>
+        <p><strong>Sora</strong> — Modern, geometric sans-serif. Weights 300–800 for hierarchy.</p>
+      </div>
+      <div class="anno-card">
+        <h4>📐 Layout Grid</h4>
+        <p>12-column CSS Grid. 2:1 split for main content and sidebar. Responsive breakpoints at 600px & 900px.</p>
+      </div>
+      <div class="anno-card">
+        <h4>♿ Accessibility</h4>
+        <p>WCAG AA contrast ratios. Semantic HTML. Keyboard navigable. Scalable font units (rem/em).</p>
+      </div>
+      <div class="anno-card">
+        <h4>✨ Micro-interactions</h4>
+        <p>Hover states on cards (translateY + shadow). Active nav underline transition. Button hover with shadow lift.</p>
+      </div>
+      <div class="anno-card">
+        <h4>📱 Responsive Design</h4>
+        <p>Mobile-first approach. Flexbox + CSS Grid. Stack to single column below 600px. Hidden nav on small screens.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

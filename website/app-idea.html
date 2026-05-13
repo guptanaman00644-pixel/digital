@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SafeKids – App Idea Document</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/> -->
+  <style>
+    :root {
+      --primary:  #7c3aed;
+      --primary2: #a78bfa;
+      --accent:   #f59e0b;
+      --green:    #22c55e;
+      --red:      #ef4444;
+      --bg:       #faf5ff;
+      --surface:  #ffffff;
+      --border:   #ede9fe;
+      --text:     #1e1b4b;
+      --muted:    #6b7280;
+      --radius:   14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      color: white;
+      padding: 4rem 5% 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      top: -150px; right: -100px;
+    }
+    .app-icon-wrap {
+      font-size: 4rem;
+      background: rgba(255,255,255,0.15);
+      width: 90px; height: 90px;
+      border-radius: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+    header h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; margin-bottom: 0.4rem; }
+    header .subtitle { font-size: 1.1rem; opacity: 0.85; margin-bottom: 1.2rem; }
+    .badges { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main { padding: 3rem 5%; max-width: 1000px; margin: 0 auto; }
+
+    /* SECTION */
+    .section { margin-bottom: 2.5rem; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-header .icon {
+      font-size: 1.4rem;
+      background: #ede9fe;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .section-header h2 { font-size: 1.25rem; font-weight: 700; }
+
+    /* OVERVIEW CARD */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .overview-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .overview-item .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.35rem;
+    }
+    .overview-item .value { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .overview-item .value.purple { color: var(--primary); }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+      border-color: var(--primary2);
+    }
+    .feature-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: #ede9fe;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card h3 span { margin-right: 0.4rem; }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* USER STORIES */
+    .user-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .user-table th {
+      background: var(--primary);
+      color: white;
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .user-table td {
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .user-table tr:last-child td { border-bottom: none; }
+    .user-table tr:hover td { background: #faf5ff; color: var(--text); }
+
+    /* TECH STACK */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .stack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+    }
+    .stack-card .s-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .stack-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .stack-card p { font-size: 0.78rem; color: var(--muted); }
+
+    /* SCREENS MOCKUP */
+    .screens-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .screen-mock {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      width: 180px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .screen-top {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      padding: 1rem 0.75rem 0.75rem;
+      color: white;
+    }
+    .screen-top .s-title { font-size: 0.75rem; font-weight: 700; }
+    .screen-top .s-sub   { font-size: 0.65rem; opacity: 0.8; }
+    .screen-body { padding: 0.75rem; }
+    .screen-item {
+      background: #f5f3ff;
+      border-radius: 8px;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.7rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .screen-btn {
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ROADMAP */
+    .roadmap { display: flex; flex-direction: column; gap: 0.75rem; }
+    .road-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+    .road-phase {
+      background: #ede9fe;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.7rem;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .road-item h4 { font-size: 0.92rem; font-weight: 600; }
+    .road-item p  { font-size: 0.83rem; color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    footer strong { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="app-icon-wrap">🛡️</div>
+  <h1>SafeKids</h1>
+  <p class="subtitle">A Cybersecurity Awareness App for Students & Parents</p>
+  <div class="badges">
+    <span class="badge">📱 Mobile App</span>
+    <span class="badge">🎯 Students (10–18)</span>
+    <span class="badge">🔐 Cybersecurity</span>
+    <span class="badge">Part 4 – App Idea</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">📋</div>
+      <h2>App Overview</h2>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-item">
+        <div class="label">App Name</div>
+        <div class="value purple">SafeKids</div>
+      </div>
+      <div class="overview-item">
+        <div class="label">Category</div>
+        <div class="value">Education / Security</div>
+      </div>
+      <div class="overview-item">
+        <div class="label">Platform</div>
+        <div class="value">Android & iOS</div>
+      </div>
+      <div class="overview-item">
+        <div class="label">Target Users</div>
+        <div class="value">Students aged 10–18</div>
+      </div>
+      <div class="overview-item">
+        <div class="label">Developer Tool</div>
+        <div class="value">MIT App Inventor</div>
+      </div>
+      <div class="overview-item">
+        <div class="label">Version</div>
+        <div class="value">MVP 1.0 (Concept)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PURPOSE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">🎯</div>
+      <h2>Purpose & Problem Statement</h2>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;">
+      <p style="margin-bottom:0.75rem;">
+        Many students today are unaware of the dangers lurking online — from phishing scams and cyberbullying to identity theft and data privacy violations.
+        Schools rarely teach practical digital safety skills, and parents often don't know how to protect their children online.
+      </p>
+      <p>
+        <strong>SafeKids</strong> solves this by providing an engaging, gamified cybersecurity education app. Through daily tips, quizzes, and real-world scenarios, students learn how to protect themselves — and parents get peace of mind with family safety tools.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3 MAIN FEATURES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">⭐</div>
+      <h2>3 Main Features</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">FEATURE 01</div>
+        <h3><span>🧠</span> Daily Cyber Tips & Lessons</h3>
+        <p>
+          Every day, students receive a bite-sized cybersecurity lesson covering topics like
+          password safety, phishing, social media privacy, and OTP scams. Lessons are written
+          for easy understanding with real-life examples.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">FEATURE 02</div>
+        <h3><span>🎮</span> Gamified Safety Quizzes</h3>
+        <p>
+          Interactive quizzes turn cybersecurity learning into a game. Students earn points,
+          badges, and unlock levels as they answer questions correctly. A leaderboard
+          encourages friendly competition among classmates.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">FEATURE 03</div>
+        <h3><span>🚨</span> Threat Scenario Simulator</h3>
+        <p>
+          Students face simulated real-world scenarios — a phishing email, a scam call, an OTP
+          request — and must choose the right action. This teaches critical thinking in a safe
+          environment before they encounter real threats.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDITIONAL FEATURES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">✨</div>
+      <h2>Additional Features</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">BONUS 01</div>
+        <h3><span>👨‍👩‍👧</span> Parent Dashboard</h3>
+        <p>Parents can track their child's progress, set screen time reminders, and receive alerts when risky online behaviour patterns are detected.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">BONUS 02</div>
+        <h3><span>📊</span> Safety Score</h3>
+        <p>A personal cybersecurity score that improves as students complete lessons, quizzes, and good digital habits — motivating consistent learning.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">BONUS 03</div>
+        <h3><span>🆘</span> Emergency Helpline</h3>
+        <p>Quick-access button to report cyberbullying, contact school counsellors, or reach national cybercrime helplines with a single tap.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARGET USERS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">👥</div>
+      <h2>Target Users</h2>
+    </div>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>User Type</th>
+          <th>Age Group</th>
+          <th>Primary Need</th>
+          <th>How SafeKids Helps</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🧒 Middle School Students</td>
+          <td>10–13 years</td>
+          <td>Basic online safety awareness</td>
+          <td>Fun quizzes and daily tip cards</td>
+        </tr>
+        <tr>
+          <td>👦 High School Students</td>
+          <td>14–18 years</td>
+          <td>Advanced threat recognition</td>
+          <td>Scenario simulator and deep-dive lessons</td>
+        </tr>
+        <tr>
+          <td>👨‍👩‍👧 Parents</td>
+          <td>30–50 years</td>
+          <td>Child safety monitoring</td>
+          <td>Parent dashboard and progress alerts</td>
+        </tr>
+        <tr>
+          <td>👩‍🏫 Teachers</td>
+          <td>Any</td>
+          <td>Classroom learning tool</td>
+          <td>Class leaderboards and lesson plans</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- APP SCREENS MOCKUP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">📱</div>
+      <h2>App Screen Concepts</h2>
+    </div>
+    <div class="screens-row">
+      <div class="screen-mock">
+        <div class="screen-top">
+          <div class="s-title">🏠 Home</div>
+          <div class="s-sub">Good morning, Alex!</div>
+        </div>
+        <div class="screen-body">
+          <div class="screen-item">🔥 Day 7 Streak!</div>
+          <div class="screen-item">📊 Safety Score: 82</div>
+          <div class="screen-item">💡 Today's Tip</div>
+          <div class="screen-btn">Start Today's Lesson</div>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-top">
+          <div class="s-title">🎮 Quiz</div>
+          <div class="s-sub">Password Safety</div>
+        </div>
+        <div class="screen-body">
+          <div class="screen-item">Q: Which password is safer?</div>
+          <div class="screen-item">○ password123</div>
+          <div class="screen-item">● T@9x!mK#2pLz ✓</div>
+          <div class="screen-btn">Next Question →</div>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-top">
+          <div class="s-title">🚨 Scenario</div>
+          <div class="s-sub">Spot the Phish</div>
+        </div>
+        <div class="screen-body">
+          <div class="screen-item">"Your bank needs OTP to unlock account"</div>
+          <div class="screen-item">○ Share the OTP</div>
+          <div class="screen-item">● Report & Ignore ✓</div>
+          <div class="screen-btn">See Explanation</div>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-top">
+          <div class="s-title">🏆 Progress</div>
+          <div class="s-sub">Your Journey</div>
+        </div>
+        <div class="screen-body">
+          <div class="screen-item">🥇 Phishing Expert</div>
+          <div class="screen-item">🥈 Password Pro</div>
+          <div class="screen-item">🔒 Next: Privacy</div>
+          <div class="screen-btn">Continue Learning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">🛠️</div>
+      <h2>Proposed Technology Stack</h2>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="s-icon">📱</div>
+        <h4>MIT App Inventor</h4>
+        <p>Primary development tool (no-code/visual)</p>
+      </div>
+      <div class="stack-card">
+        <div class="s-icon">🗄️</div>
+        <h4>Firebase</h4>
+        <p>User data, scores & progress storage</p>
+      </div>
+      <div class="stack-card">
+        <div class="s-icon">🎨</div>
+        <h4>Figma</h4>
+        <p>UI/UX prototyping & screen design</p>
+      </div>
+      <div class="stack-card">
+        <div class="s-icon">🔔</div>
+        <h4>Push Notifications</h4>
+        <p>Daily tips & reminders for users</p>
+      </div>
+      <div class="stack-card">
+        <div class="s-icon">🤖</div>
+        <h4>AI Integration</h4>
+        <p>Personalized lesson recommendations</p>
+      </div>
+      <div class="stack-card">
+        <div class="s-icon">🌐</div>
+        <h4>REST API</h4>
+        <p>Live cybersecurity news & threat feeds</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="icon">🗺️</div>
+      <h2>Development Roadmap</h2>
+    </div>
+    <div class="roadmap">
+      <div class="road-item">
+        <span class="road-phase">PHASE 1</span>
+        <div>
+          <h4>Concept & Design (Week 1–2)</h4>
+          <p>Define features, create wireframes in Figma, plan user flows and information architecture.</p>
+        </div>
+      </div>
+      <div class="road-item">
+        <span class="road-phase">PHASE 2</span>
+        <div>
+          <h4>MVP Development (Week 3–5)</h4>
+          <p>Build core features using MIT App Inventor: daily tips, basic quiz, user login.</p>
+        </div>
+      </div>
+      <div class="road-item">
+        <span class="road-phase">PHASE 3</span>
+        <div>
+          <h4>Testing & Feedback (Week 6)</h4>
+          <p>Beta test with classmates and teachers. Collect feedback and fix bugs.</p>
+        </div>
+      </div>
+      <div class="road-item">
+        <span class="road-phase">PHASE 4</span>
+        <div>
+          <h4>Advanced Features (Week 7–8)</h4>
+          <p>Add scenario simulator, leaderboard, parent dashboard, and safety score.</p>
+        </div>
+      </div>
+      <div class="road-item">
+        <span class="road-phase">PHASE 5</span>
+        <div>
+          <h4>Launch & Submission</h4>
+          <p>Submit to Google Play (student account), publish on GitHub, present to class.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>🛡️ <strong>SafeKids App</strong> — Part 4: App Development Idea · Digital Profile Ecosystem Project · 2026</p>
+  <p style="margin-top:0.35rem">Built as a concept using MIT App Inventor · Designed to empower students with cybersecurity knowledge</p>
+</footer>
+
+</body>
+</html>
